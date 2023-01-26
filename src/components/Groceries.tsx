@@ -1,19 +1,15 @@
-import React, { useState } from "react";
-import { Grid, Typography, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Grid, Typography, Button, styled } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import TextField from "@mui/material/TextField";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-// import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
 import ListItemText from "@mui/material/ListItemText";
-// import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
-// import CommentIcon from '@material-ui/icons/Comment';
-// import { DeleteOutlined } from '@material-ui/icons';
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { v4 as uuidv4 } from "uuid";
-// import { FilledInput } from "@mui/material";
+import { blue, green, purple, red } from "@mui/material/colors";
 
 const useStyles = makeStyles()((theme) => {
   return {
@@ -41,13 +37,42 @@ const useStyles = makeStyles()((theme) => {
   };
 });
 
+const Responsive = styled("div")(({ theme }) => ({
+  [theme.breakpoints.up("sm")]: {
+    color: "#d50000",
+    fontSize: "25px",
+  },
+  [theme.breakpoints.up("md")]: {
+    color: "#aa00ff",
+    fontSize: "40px",
+  },
+  [theme.breakpoints.up("lg")]: {
+    color: "#2962ff",
+    fontSize: "50px",
+  },
+}));
+
 interface Props {}
 
 const Todo: React.FC<Props> = (props) => {
+  const [w, setW] = useState(window.innerWidth);
+
   const { classes } = useStyles();
   const [listData, setListData] = useState<any>([]);
   const [checked, setChecked] = React.useState([0]);
   const [inputChange, setInputChange] = useState("");
+
+  useEffect(() => {
+    const handleResize = () => {
+      setW(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const onSubmit = (e: any) => {
     e.preventDefault();
@@ -70,7 +95,7 @@ const Todo: React.FC<Props> = (props) => {
   };
 
   return (
-    <div
+    <Responsive
       style={{
         backgroundColor: "#dadae4",
         height: "100vh",
@@ -88,6 +113,7 @@ const Todo: React.FC<Props> = (props) => {
           >
             Grocery List
           </Typography>
+          <Typography variant="h6">ScreenSize: {w} px</Typography>
         </Grid>
         <Grid
           item
@@ -127,7 +153,7 @@ const Todo: React.FC<Props> = (props) => {
           container
           justifyContent="center"
           component="span"
-          style={{ fontSize: "2rem" }}
+          style={{ fontSize: "1.5rem" }}
         >
           <List
             className={classes.listItems}
@@ -162,7 +188,7 @@ const Todo: React.FC<Props> = (props) => {
           </List>
         </Grid>
       </Grid>
-    </div>
+    </Responsive>
   );
 };
 
