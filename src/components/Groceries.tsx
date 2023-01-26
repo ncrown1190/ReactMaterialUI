@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { v4 as uuidv4 } from "uuid";
 import { blue, green, purple, red } from "@mui/material/colors";
+// import { theme } from "./styles";
 
 const useStyles = makeStyles()((theme) => {
   return {
@@ -30,9 +31,7 @@ const useStyles = makeStyles()((theme) => {
       //borderRadius: "5px",
     },
     input: {
-      //   width: "20rem",
       width: "276px",
-      //   maxWidth: "300px",
     },
   };
 });
@@ -193,3 +192,6 @@ const Todo: React.FC<Props> = (props) => {
 };
 
 export default Todo;
+
+//https://www.youtube.com/watch?v=p3_XsZSeJWg&ab_channel=Grepsoft
+// https://codesandbox.io/s/material-ui-advanced-dnsx3?file=/src/App.js:1112-1780
